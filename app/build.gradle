@@ -1,0 +1,142 @@
+apply plugin: 'com.android.application'
+
+
+def config = rootProject.ext.configs;    //在根目录build.gradle中配置
+def lib = rootProject.ext.libs;
+android {
+    compileSdkVersion config.compileSdkVersion
+
+
+    defaultConfig {
+        applicationId "com.cyht.wykc"
+        minSdkVersion 16
+        targetSdkVersion config.targetSdkVersion
+        versionCode 225
+        versionName "2.2.5"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
+
+        ndk{
+            abiFilters "armeabi","armeabi-v7a","x86","mips"
+        }
+    }
+
+
+
+    dexOptions {
+        jumboMode true
+    }
+    buildTypes {
+        release {
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            zipAlignEnabled true
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+        }
+    }
+    signingConfigs {
+        debug {
+            storeFile file('config/key.keystore')
+            storePassword "cyht123"
+            keyAlias "key"
+            keyPassword "cyht123"
+        }
+
+        release {
+            storeFile file("config/key.keystore")
+            storePassword "cyht123"
+            keyAlias "key"
+            keyPassword "cyht123"
+        }
+    }
+
+    allprojects {
+        repositories {
+            google()
+            maven { url "https://maven.google.com" }
+            jcenter()
+            maven { url "https://jitpack.io" }
+            mavenCentral()
+            maven {
+                url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
+            }
+
+
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    buildToolsVersion '27.0.3'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation "com.android.support:appcompat-v7:${lib.supportVersion}"
+    //基于扁平化的设计，有可能用不上
+    implementation "com.android.support:design:${lib.supportVersion}"
+    implementation 'com.afollestad.material-dialogs:core:0.8.6.1'
+
+    //基于扁平化的设计，有可能用不上
+    implementation "com.android.support:cardview-v7:${lib.supportVersion}"
+    implementation project(':PushSDK')
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.github.zhaokaiqiang.klog:library:1.5.0'
+    implementation 'me.imid.swipebacklayout.lib:library:1.0.0'
+    //筛选器
+    implementation 'com.github.dongjunkun:DropDownMenu:1.0.3'
+    //Rx系列
+    implementation 'io.reactivex:rxandroid:1.2.1'
+    implementation 'io.reactivex:rxjava:1.1.6'
+    //retrofit2系列
+    implementation 'com.squareup.retrofit2:retrofit:2.1.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.0-RC1'
+    implementation 'com.google.code.gson:gson:2.6.2'
+    //第三方控件
+    implementation 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
+    implementation 'org.greenrobot:eventbus:3.0.0'
+    //底部导航栏
+    implementation 'com.aurelhubert:ahbottomnavigation:1.2.2'
+    implementation 'me.yokeyword:fragmentation:1.1.1'
+    implementation 'me.yokeyword:fragmentation-swipeback:1.1.1'
+    //图片加载
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.android.support:support-v4:23.3.0'
+    //黄油刀系列
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.7.8'
+    //下拉刷新
+    implementation 'in.srain.cube:ultra-ptr:1.0.11'
+    implementation 'com.facebook.stetho:stetho:1.1.0'
+    //chrome浏览器监听Android手机内容
+    implementation 'com.facebook.stetho:stetho-okhttp:1.1.0'
+    implementation project(':lib')
+
+    //方法超过极限，多打包
+    implementation 'com.android.support:multidex:1.0.0'
+
+    //沉浸式
+    implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
+
+
+    implementation 'com.google.dagger:dagger:2.0'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.0'
+}
