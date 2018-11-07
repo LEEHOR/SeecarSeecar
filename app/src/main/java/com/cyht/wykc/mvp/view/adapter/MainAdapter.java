@@ -130,7 +130,6 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     if (mainBean.getData().getTopicList().size()>1) {
                         ((BannerViewHolder) holder).bannerView.startLoop(true);
                     }
-                    KLog.e(imglist.size());
                     ((BannerViewHolder) holder).bannerView.setImgList(imglist).setItemClickListener(new ItemClickListener() {
                         @Override
                         public void onclick(int position) {
@@ -148,7 +147,7 @@ public class MainAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 Glide.with(context).load(mainBean.getData().getVideoList().get(position - 3).getCover()).into(((VideoViewHolder) holder).imageView);
 //                ((VideoViewHolder) holder).tv_tittle.getBackground().setAlpha(102);
                 ((VideoViewHolder) holder).tv_tittle.setText(mainBean.getData().getVideoList().get(position - 3).getTitle());
-                KLog.e(mainBean.getData().getVideoList().get(position-3).getComment()+"");
+                KLog.d(mainBean.getData().getVideoList().get(position-3).getComment()+"");
                 ((VideoViewHolder) holder).tv_comment_count.setText(mainBean.getData().getVideoList().get(position-3).getComment()+"");
                 ((VideoViewHolder) holder).tv_brand.setText(mainBean.getData().getVideoList().get(position-3).getCarName());
                 ((VideoViewHolder) holder).tv_play_count.setText(mainBean.getData().getVideoList().get(position-3).getCount()+"次播放");

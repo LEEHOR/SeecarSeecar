@@ -4,7 +4,7 @@
     android:id="@+id/ll_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f5f5f5"
+    android:background="#ffffff"
     android:orientation="vertical">
 
     <com.cyht.wykc.widget.MyTittleBar.NormalTittleBar
@@ -13,12 +13,39 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bg_shadow_shape"
         app:layout_inflate="@layout/normal_leftback_tittle_bar" />
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:orientation="vertical"
+       android:layout_weight="2"
+       >
 
+
+    <LinearLayout
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_marginLeft="30px"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+           android:src="@mipmap/login"
+            />
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18dp"
+            android:textColor="#2fc1ff"
+            android:layout_marginLeft="30px"
+            android:text="登录"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/dp_40"
         android:background="@drawable/bg_fff_background"
         android:orientation="vertical">
 
@@ -29,35 +56,25 @@
 
             <TextView
                 android:id="@+id/tv_86"
-                android:text="+86"
-                android:textSize="15sp"
-                android:textColor="#333333"
-                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <View
-                android:id="@+id/v_line"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/tv_86"
-                android:layout_marginLeft="20dp"
-                android:background="#f2f2f2"
-                android:layout_width="1px"
-                android:layout_height="25dp"/>
+                android:layout_height="wrap_content"
+                android:text="账  户:"
+                android:textColor="#333333"
+                android:textSize="15sp" />
             
-            <com.cyht.wykc.widget.MobilePhoneEditText
+            <EditText
                 android:id="@+id/et_mobilephone"
                 android:background="@null"
-                android:hint="请输入手机号码"
+                android:hint="请输入4～12位(字母、数字)"
                 android:textColorHint="#e6e6e6"
                 android:textColor="#333333"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/v_line"
+                android:layout_toRightOf="@+id/tv_86"
                 android:layout_marginLeft="20dp"
                 android:textSize="15sp"
-                android:maxLength="13"
-                android:inputType="number"
+                android:maxLength="12"
                 android:singleLine="true"
-                android:layout_width="150dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content" />
 
             <com.cyht.wykc.widget.BlockTextView
@@ -66,6 +83,7 @@
                 android:textSize="15sp"
                 android:textColor="#333333"
                 android:gravity="center"
+                android:visibility="gone"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_width="90dp"
@@ -82,7 +100,7 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="验证码"
+                android:text="密  码:"
                 android:textSize="15sp"
                 android:textColor="#333333"
                 android:layout_width="wrap_content"
@@ -91,30 +109,33 @@
             <EditText
                 android:id="@+id/et_verification_code"
                 android:layout_marginLeft="20dp"
-                android:hint="请输入验证码"
+                android:hint="请输入6～18位密码"
                 android:textSize="15sp"
-                android:maxLength="6"
+                android:maxLength="18"
                 android:background="@null"
-                android:inputType="number"
+                android:maxLines="1"
                 android:textColorHint="#e6e6e6"
                 android:textColor="#333333"
-                android:layout_width="150dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content" />
         </LinearLayout>
-
+        <View
+            android:background="#f2f2f2"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
     </LinearLayout>
     <TextView
-        android:layout_margin="10dp"
-        android:textColor="#f2f2f2"
+        android:id="@+id/login_message"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="12.5dp"
+        android:textColor="@color/red_error"
         android:textSize="13sp"
-        android:text="@string/login_hinit_text"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     
     <TextView
-        android:id="@+id/tv_login"
         android:layout_marginTop="20dp"
+        android:id="@+id/tv_login"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:background="#969798"
@@ -124,17 +145,38 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="44dp" />
+<TextView
+    android:id="@+id/register_account"
+    android:layout_marginTop="20dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textSize="14dp"
+    android:textColor="#2fc1ff"
+    android:text="@string/no_count"/>
+   </LinearLayout>
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="30dp">
     <TextView
-        android:layout_marginTop="135dp"
-        android:text="其他登录方式"
+
+        android:text="第三方登录"
         android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -148,8 +190,8 @@
 
             <ImageView
                 android:id="@+id/login_btn_wx"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:background="@mipmap/login_weixin"/>
 
             <TextView
@@ -157,6 +199,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/cyht_content_size"
+                android:visibility="gone"
                 android:textColor="@color/cyht_content_color"
                 android:text="@string/login_wx"/>
 
@@ -171,8 +214,8 @@
 
             <ImageView
                 android:id="@+id/login_btn_qq"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:background="@mipmap/login_qq"/>
 
             <TextView
@@ -180,12 +223,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/cyht_content_size"
+                android:visibility="gone"
                 android:textColor="@color/cyht_content_color"
                 android:text="@string/login_qq"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -207,6 +252,7 @@
                 android:text="@string/login_wb"/>
 
         </LinearLayout>
-
     </LinearLayout>
+    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

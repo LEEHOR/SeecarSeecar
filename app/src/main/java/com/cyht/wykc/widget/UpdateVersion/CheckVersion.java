@@ -78,7 +78,7 @@ public class CheckVersion {
     public void check(){
 		params.put(CYHTConstants.TYPEVALUE,"android");
 		params.put(Constants.VERSION,getAppInfo());
-		KLog.e(getAppInfo());
+		KLog.d(getAppInfo());
 		HttpHelper.getInstance().initService().updatecheck(params).enqueue(new Callback<UpdateBean>() {
 			@Override
 			public void onResponse(Call<UpdateBean> call, Response<UpdateBean> response) {

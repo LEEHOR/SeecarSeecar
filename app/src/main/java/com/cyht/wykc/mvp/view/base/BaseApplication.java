@@ -143,7 +143,7 @@ public class BaseApplication extends LitePalApplication {
                         }
                         DatabaseUtils.getInstance().save(CarBean.class, carmodels);
                         SharedPreferencesUtils.put(mContext, "carversion", carDBbean.getVersion());
-                        KLog.e(TAG + "数据条数：" + carmodels.size());
+                        KLog.d(TAG + "数据条数：" + carmodels.size());
                     }
                 }
             }
@@ -167,7 +167,7 @@ public class BaseApplication extends LitePalApplication {
                         }
                         DatabaseUtils.getInstance().save(BrandBean.class, beanList);
                         SharedPreferencesUtils.put(mContext, "brandversion", brandDBbean.getData().getVersion());
-                        KLog.e(TAG + "数据条数：" + beanList.size());
+                        KLog.d(TAG + "数据条数：" + beanList.size());
                     }
                 }
             }
@@ -206,7 +206,7 @@ public class BaseApplication extends LitePalApplication {
 
             @Override
             public void onCoreInitFinished() {
-                KLog.e("app", " onCoreInitFinished is ");
+                KLog.d("app", " onCoreInitFinished is ");
 
                 // TODO Auto-generated method stub
             }
@@ -297,12 +297,12 @@ public class BaseApplication extends LitePalApplication {
                 if (response.isSuccessful()) {
                     ResultBean resultBean=response.body();
                     if (resultBean.getResult()==1) {
-                        KLog.e("token上传成功："+token);
+                        KLog.d("token上传成功："+token);
                     }else {
-                        KLog.e("token上传失败："+token);
+                        KLog.d("token上传失败："+token);
                     }
                 }else {
-                    KLog.e("token上传失败："+token);
+                    KLog.d("token上传失败："+token);
                 }
             }
 

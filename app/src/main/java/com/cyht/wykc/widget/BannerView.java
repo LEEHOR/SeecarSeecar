@@ -91,7 +91,6 @@ public class BannerView extends FrameLayout {
                 mBannerHandler.removeMessages(MSG_LOOP);
             }
             mBannerHandler.sendEmptyMessageDelayed(MSG_LOOP, LOOP_INTERVAL);
-            KLog.e("sendEmptyMessageDelayed");
         } else {
             if (mBannerHandler != null) {
                 if (mBannerHandler.hasMessages(MSG_LOOP)) {
@@ -218,7 +217,6 @@ public class BannerView extends FrameLayout {
     public BannerView setImgList(List<String> imglist) {
         this.imglist = imglist;
         viewSize = this.imglist.size();
-        KLog.e(viewSize);
         BannerAdapter bannerAdapter = new BannerAdapter(this.imglist);
         setAdapter(bannerAdapter);
         return this;
@@ -305,7 +303,7 @@ public class BannerView extends FrameLayout {
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
             if (size > cacheCount) {
-                KLog.e("destroyItem", position + "");
+                KLog.d("destroyItem", position + "");
                 container.removeView(imageViews.get(position % size));
             }
         }
@@ -313,7 +311,7 @@ public class BannerView extends FrameLayout {
         // 当要显示的图片可以进行缓存的时候，会调用这个方法进行显示图片的初始化，我们将要显示的ImageView加入到ViewGroup中，然后作为返回值返回即可
         @Override
         public Object instantiateItem(ViewGroup container, final int position) {
-            KLog.e("instantiateItem", position + "");
+            KLog.d("instantiateItem", position + "");
             ViewGroup parent = (ViewGroup) imageViews.get(position % size).getParent();
             if (parent != null) {
                 parent.removeView(imageViews.get(position % size));

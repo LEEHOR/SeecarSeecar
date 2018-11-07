@@ -68,7 +68,7 @@ public class PassengerCarModel extends BaseModel<PassengerCarContract.Presenter>
             public void onFailure(Call<BrandListBean> call, Throwable t) {
                 if (getPresenter() != null)
                     getPresenter().onrequestBrandFailue(t);
-                KLog.e(t.getCause());
+                KLog.d(t.getCause());
             }
         });
 

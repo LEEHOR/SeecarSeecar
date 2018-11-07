@@ -27,7 +27,6 @@ public class PassengerCarPresenter extends BasePresenter<PassengerCarContract.Vi
     public void start() {
         if (mModle != null&&getView()!=null) {
             mModle.start();
-            KLog.e("start");
         }
     }
 

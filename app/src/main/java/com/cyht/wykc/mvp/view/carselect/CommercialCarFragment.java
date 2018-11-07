@@ -105,7 +105,7 @@ public class CommercialCarFragment extends BaseFragment<CommercialCarContract.Pr
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        KLog.e("onViewStateRestored");
+        KLog.d("onViewStateRestored");
     }
 
     @Override

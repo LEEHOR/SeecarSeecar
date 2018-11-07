@@ -129,7 +129,7 @@ public class PassengerCarFragment extends BaseFragment<PassengerCarContract.Pres
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        KLog.e("onViewStateRestored");
+        KLog.d("onViewStateRestored");
     }
 
     @Override
@@ -322,7 +322,7 @@ public class PassengerCarFragment extends BaseFragment<PassengerCarContract.Pres
             if (e instanceof NetworkErrorException) {
                 Toast.makeText(_mActivity, "网络不给力呀", Toast.LENGTH_SHORT).show();
             } else {
-                KLog.e("throwable:"+e.getMessage());
+                KLog.d("throwable:"+e.getMessage());
             }
         }
     }

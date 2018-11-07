@@ -2,10 +2,12 @@ package com.cyht.wykc.mvp.view;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
 import android.view.View;
@@ -54,7 +56,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter> impleme
     @BindView(R.id.tb_tittle)
     NormalTittleBar tbTittle;
     @BindView(R.id.et_mobilephone)
-    MobilePhoneEditText etMobilephone;
+    EditText etMobilephone;
     @BindView(R.id.btv_verification)
     BlockTextView btvVerification;
     @BindView(R.id.et_verification_code)
@@ -69,7 +71,10 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter> impleme
     ImageView loginBtnWb;
     @BindView(R.id.ll_login)
     LinearLayout lllogin;
-
+    @BindView(R.id.login_message)
+    TextView login_message;
+    @BindView(R.id.register_account)
+    TextView register_account;
     private LoadingDialog alertDialog;
 
     private int action = 0;//1:QQ,2:微信,3:新浪
@@ -90,8 +95,9 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter> impleme
 
     @Override
     public void initView() {
+        register_account.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         tbTittle.setPadding(tbTittle.getPaddingLeft(), ScreenUtils.getStatusBarHeight(BaseApplication.mContext), tbTittle.getPaddingRight(), tbTittle.getPaddingBottom());
-        tbTittle.getTvTittle().setText("登录");
+        tbTittle.getTvTittle().setVisibility(View.GONE);
         tbTittle.getLeftIcon().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,12 +107,16 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter> impleme
         loginBtnWx.setOnClickListener(wxClick);
         loginBtnQq.setOnClickListener(qqClick);
         loginBtnWb.setOnClickListener(wbClick);
+        register_account.setOnClickListener(registerListener);
+        /**
+         * 此方法不用
+         */
         btvVerification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etMobilephone.getPhoneNumber().length()==11) {
+                if (etMobilephone.getText().length() == 11) {
                     btvVerification.startGetCount();
-                    mPresenter.getVerificationCode(etMobilephone.getPhoneNumber());
+                    mPresenter.getVerificationCode(etMobilephone.getText().toString());
 //                    Toast.makeText(LoginActivity.this,etMobilephone.getPhoneNumber()+"",Toast.LENGTH_LONG).show();
                 }else {
                     Toast.makeText(LoginActivity.this,"请输入正确手机号码",Toast.LENGTH_LONG).show();
@@ -114,10 +124,32 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter> impleme
             }
         });
 
+        etMobilephone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                login_message.setText("");
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if ((etVerificationCode.getText() != null && !etVerificationCode.getText().equals("")) && (editable != null && !editable.toString().equals(""))) {
+                    tvLogin.setClickable(true);
+                    tvLogin.setBackgroundColor(Color.parseColor("#2fc1ff"));
+                } else {
+                    tvLogin.setClickable(false);
+                    tvLogin.setBackgroundColor(Color.parseColor("#969798"));
+                }
+            }
+        });
         etVerificationCode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                login_message.setText("");
             }
 
             @Override
@@ -126,7 +158,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter> impleme
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().length()==6&&etMobilephone.getPhoneNumber().length()==11) {
+                if ((s != null && !s.toString().equals("")) && (etMobilephone.getText() != null && !etMobilephone.getText().equals(""))) {
                     tvLogin.setClickable(true);
                     tvLogin.setBackgroundColor(Color.parseColor("#2fc1ff"));
                 }else {
@@ -139,17 +171,19 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter> impleme
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etMobilephone.getPhoneNumber().length()!=11) {
-                    Toast.makeText(LoginActivity.this,"请输入十一位手机号",Toast.LENGTH_LONG).show();
+                if (etMobilephone.getText().length() < 4 || etMobilephone.getText().length() > 12) {
+                    Toast.makeText(LoginActivity.this, "请输入4～12字符(字母、数字)", Toast.LENGTH_LONG).show();
+                    login_message.setText("账户：请输入4～12字符(字母、数字)");
                     return;
                 }
-                if (etVerificationCode.getText().length()!=6) {
-                    Toast.makeText(LoginActivity.this,"请输入六位验证码",Toast.LENGTH_LONG).show();
+                if (etVerificationCode.getText().length() < 6 || etVerificationCode.getText().length() > 18) {
+                    Toast.makeText(LoginActivity.this, "请输入6～18位密码", Toast.LENGTH_LONG).show();
+                    login_message.setText("密码：请输入6～18位密码");
                     return;
                 }
                 Map map = new HashMap();
-                map.put("usercode",etMobilephone.getPhoneNumber());
-                map.put("xingming",etMobilephone.getPhoneNumber());
+                map.put("usercode", etMobilephone.getText());
+                map.put("xingming", etMobilephone.getText());
                 map.put("typevalue","0");
                 map.put("mobilecode",etVerificationCode.getText().toString());
                 map.put(Constants.DEVICESTOKEN, Constants.devicestoken != null && Constants.devicestoken != "" ? Constants.devicestoken : (String) SharedPreferencesUtils.get(BaseApplication.mContext, Constants.DEVICESTOKEN, ""));
@@ -258,7 +292,13 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter> impleme
             trilateralLogin();
         }
     };
-
+    View.OnClickListener registerListener=new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
+            startActivity(intent);
+        }
+    };
     View.OnClickListener wbClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {

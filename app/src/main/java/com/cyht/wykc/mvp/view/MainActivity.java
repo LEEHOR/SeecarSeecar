@@ -98,7 +98,7 @@ public class MainActivity extends BaseActivity{
 //        Eyes.setStatusBarLightMode(this, Color.WHITE);
 //        Eyes.translucentStatusBar(this);//设置半透明statusbar
 //        Eyes.translucentStatusBar(this,true);
-        KLog.e("external:"+ Environment.getExternalStorageDirectory().getPath());
+        KLog.d("external:"+ Environment.getExternalStorageDirectory().getPath());
         mFragments[0] = MainFragment.newInstance();
         mFragments[1] = CarBrandFragement.newInstance();
         mFragments[2] = PersonalCenterFragment.newInstance();
@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity{
         bottomNavigation.setOnTabPositionListener(new MyBottomNavigation.OnTabPositionListener() {
             @Override
             public void onPositionTab(int position) {
-                KLog.e("onPositionTab",position+"");
+                KLog.d("onPositionTab",position+"");
                 if (position == 2 && !PreferenceUtils.contains(BaseApplication.mContext, Constants.USERNAME)) {
 //                    showLoginDialog();
                     Intent intent = new Intent(MainActivity.this,LoginActivity.class);

@@ -22,9 +22,9 @@ public class Constants extends CYHTConstants{
     }
 
     //国内版
-    public static final String BASE_URL = "http://android.woyaokanche.com:8082/51kanche/";
+   // public static final String BASE_URL = "http://android.woyaokanche.com:8082/51kanche/";
     //海外版
-    //public static final String BASE_URL="http://en.ccarccar.com:8085/51kanche/";
+    public static final String BASE_URL="http://en.ccarccar.com:8085/51kanche/";
 
 
     //SD卡路径

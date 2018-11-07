@@ -27,7 +27,7 @@ public class LoggingInterceptor implements Interceptor {
         if (request.body() != null)
             request.body().writeTo(buffer);
 
-        KLog.e( String.format("Sending request %s on %s%n%sRequest Params: %s",
+        KLog.d( String.format("Sending request %s on %s%n%sRequest Params: %s",
                 request.url(), chain.connection(), request.headers(), buffer.clone().readUtf8()));
         buffer.close();
 
@@ -37,7 +37,7 @@ public class LoggingInterceptor implements Interceptor {
         BufferedSource source = response.body().source();
         source.request(Long.MAX_VALUE);
         buffer = source.buffer().clone();
-        KLog.e(String.format("Received response for %s%nin %.1fms%n%sResponse Json: %s",
+        KLog.d(String.format("Received response for %s%nin %.1fms%n%sResponse Json: %s",
                 response.request().url(), (t2 - t1) / 1e6d, response.headers(),
                 buffer.readUtf8()));
         buffer.close();

@@ -112,6 +112,8 @@
         <activity
             android:name=".mvp.view.LoginActivity"
             android:launchMode="singleTop" />
+        <activity android:name=".mvp.view.RegisterActivity"
+            android:launchMode="singleTop"/>
         <activity
             android:name=".mvp.view.TweetActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -209,6 +211,7 @@
                 <!--<action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />-->
             </intent-filter>
         </receiver>
+
     </application>
 
 </manifest>

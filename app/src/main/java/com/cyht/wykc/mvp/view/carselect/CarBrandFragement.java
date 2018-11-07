@@ -61,7 +61,7 @@ public class CarBrandFragement extends BaseFragment<CarBrandContract.Presenter> 
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
 
-        KLog.e("onViewStateRestored");
+        KLog.d("onViewStateRestored");
         if (savedInstanceState != null) {
             mFragments[0] = findFragment(PassengerCarFragment.class);
             mFragments[1] = findFragment(CommercialCarFragment.class);
@@ -125,8 +125,8 @@ public class CarBrandFragement extends BaseFragment<CarBrandContract.Presenter> 
         cyhtBiaotilan.getTabView().setOnPositionClickListener(new OnPositionClickListener() {
             @Override
             public void setOnPositionClick(int position) {
-                KLog.e("NavigationPreposition:" + NavigationPreposition);
-                KLog.e("position:" + position);
+                KLog.d("NavigationPreposition:" + NavigationPreposition);
+                KLog.d("position:" + position);
                 if (NavigationPreposition != position) {
                     showHideFragment(mFragments[position], mFragments[NavigationPreposition]);
                     NavigationPreposition = position;
