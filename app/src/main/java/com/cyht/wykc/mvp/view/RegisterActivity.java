@@ -11,17 +11,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.cyht.wykc.R;
+import com.cyht.wykc.common.Constants;
 import com.cyht.wykc.mvp.contract.RegisterContract;
+import com.cyht.wykc.mvp.modles.bean.LoginBean;
+import com.cyht.wykc.mvp.modles.bean.RegisterBean;
 import com.cyht.wykc.mvp.presenter.RegisterPresenter;
 import com.cyht.wykc.mvp.view.base.BaseActivity;
 import com.cyht.wykc.mvp.view.base.BaseApplication;
 import com.cyht.wykc.utils.CodeUtil.CodeUtilListener;
 import com.cyht.wykc.utils.CodeUtil.CodeUtils;
+import com.cyht.wykc.utils.PreferenceUtils;
 import com.cyht.wykc.utils.ScreenUtils;
+import com.cyht.wykc.utils.SharedPreferencesUtils;
 import com.cyht.wykc.widget.MyTittleBar.NormalTittleBar;
 import com.socks.library.KLog;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -212,27 +221,33 @@ public class RegisterActivity extends BaseActivity<RegisterContract.Presenter> i
             @Override
             public void onClick(View view) {
                 if (register_account.getText().toString().length()<4 || register_account.getText().toString().length()>12){
-                    register_massage.setText("请输入4～12位(字母、数字)");
+                    register_massage.setText("请输入4～12位(字母、数字)!");
                     return;
                 }
                 if (register_pass.getText().toString().length()<6 || register_pass.getText().toString().length()>18){
-                    register_massage.setText("请输入6～18位密码");
+                    register_massage.setText("请输入6～18位密码!");
                     return;
                 }
                 if (register_pass_sure.getText().toString().length()<6 || register_pass_sure.getText().toString().length()>18){
-                    register_massage.setText("请输入6～18位密码");
+                    register_massage.setText("请输入6～18位密码!");
                     return;
                 }
-                if ( !TextUtils.equals(register_pass.getText(),register_pass_sure.getText())){
-                    register_massage.setText("两次输入的密码不一致");
+                if (!TextUtils.equals(register_pass.getText(), register_pass_sure.getText())) {
+                    register_massage.setText("两次输入的密码不一致!");
                     return;
                 }
                 if (!TextUtils.equals(register_identifyingCode.getText().toString().toUpperCase(),codes)){
-                    register_massage.setText("验证码错误");
+                    register_massage.setText("验证码错误!");
                     Bitmap bitmap = CodeUtils.getInstance().createBitmap();
                     iv_code.setImageBitmap(bitmap);
                     return;
                 }
+                Map<String, String> params = new HashMap<>();
+                params.put("account", register_account.getText().toString());
+                params.put(Constants.DEVICESTOKEN, Constants.devicestoken != null && Constants.devicestoken != "" ? Constants.devicestoken : (String) SharedPreferencesUtils.get(BaseApplication.mContext, Constants.DEVICESTOKEN, ""));
+                params.put("password", register_pass_sure.getText().toString());
+                params.put(Constants.SYSTEM, Constants.ANDROID);
+                mPresenter.onRegister(params);
             }
         });
     }
@@ -241,5 +256,41 @@ public class RegisterActivity extends BaseActivity<RegisterContract.Presenter> i
     public void initData() {
         Bitmap bitmap = CodeUtils.getInstance().createBitmap();
         iv_code.setImageBitmap(bitmap);
+    }
+
+    @Override
+    public void onRegisterSuccess(RegisterBean bean) {
+        Toast.makeText(RegisterActivity.this,bean.getMsg(),Toast.LENGTH_LONG).show();
+        Map<String,String> map=new HashMap<>();
+        map.put("account",register_account.getText().toString());
+        map.put("password",register_pass_sure.getText().toString());
+        mPresenter.Login(map);
+    }
+
+    @Override
+    public void onRegisterFailure(Throwable t) {
+        Bitmap bitmap = CodeUtils.getInstance().createBitmap();
+        iv_code.setImageBitmap(bitmap);
+    }
+
+    @Override
+    public void loginSuccess(LoginBean bean) {
+        String username = bean.getUsername();
+        String touxiang = bean.getTouxiang();
+        String sessionid = bean.getSessionid();
+        Constants.sessionid = sessionid;
+        Constants.touxiang = touxiang;
+        Constants.username = username;
+        KLog.e("username:" + touxiang);
+        PreferenceUtils.setPrefString(BaseApplication.mContext, Constants.SESSION_ID, sessionid);
+        PreferenceUtils.setPrefString(BaseApplication.mContext, Constants.USERNAME, username);
+        PreferenceUtils.setPrefString(BaseApplication.mContext, Constants.TOUXIANG, touxiang);
+        setResult(1000);
+        finish();
+    }
+
+    @Override
+    public void loginFailure(Throwable t) {
+
     }
 }

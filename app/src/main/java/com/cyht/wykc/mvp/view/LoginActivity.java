@@ -173,21 +173,23 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter> impleme
             public void onClick(View v) {
                 if (etMobilephone.getText().length() < 4 || etMobilephone.getText().length() > 12) {
                     Toast.makeText(LoginActivity.this, "请输入4～12字符(字母、数字)", Toast.LENGTH_LONG).show();
-                    login_message.setText("账户：请输入4～12字符(字母、数字)");
+                    login_message.setText("账户：请输入4～12位(字母、数字)!");
                     return;
                 }
                 if (etVerificationCode.getText().length() < 6 || etVerificationCode.getText().length() > 18) {
                     Toast.makeText(LoginActivity.this, "请输入6～18位密码", Toast.LENGTH_LONG).show();
-                    login_message.setText("密码：请输入6～18位密码");
+                    login_message.setText("密码：请输入6～18位密码!");
                     return;
                 }
                 Map map = new HashMap();
-                map.put("usercode", etMobilephone.getText());
-                map.put("xingming", etMobilephone.getText());
-                map.put("typevalue","0");
-                map.put("mobilecode",etVerificationCode.getText().toString());
-                map.put(Constants.DEVICESTOKEN, Constants.devicestoken != null && Constants.devicestoken != "" ? Constants.devicestoken : (String) SharedPreferencesUtils.get(BaseApplication.mContext, Constants.DEVICESTOKEN, ""));
-                map.put(Constants.SYSTEM, Constants.ANDROID);
+              //  map.put("usercode", etMobilephone.getText());
+              //  map.put("xingming", etMobilephone.getText());
+               // map.put("typevalue","0");
+               // map.put("mobilecode",etVerificationCode.getText().toString());
+               // map.put(Constants.DEVICESTOKEN, Constants.devicestoken != null && Constants.devicestoken != "" ? Constants.devicestoken : (String) SharedPreferencesUtils.get(BaseApplication.mContext, Constants.DEVICESTOKEN, ""));
+               // map.put(Constants.SYSTEM, Constants.ANDROID);
+                map.put("account",etMobilephone.getText().toString());
+                map.put("password",etVerificationCode.getText().toString());
                 alertDialog.show();
                 mPresenter.phoneLogin(map);
 
@@ -296,7 +298,7 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter> impleme
         @Override
         public void onClick(View view) {
             Intent intent=new Intent(LoginActivity.this,RegisterActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent,1000);
         }
     };
     View.OnClickListener wbClick = new View.OnClickListener() {
@@ -346,7 +348,12 @@ public class LoginActivity extends BaseActivity<LoginContract.Presenter> impleme
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        if (resultCode==1000){
+            setResult(1);
+            finish();
+        } else {
+            UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        }
     }
 
 }

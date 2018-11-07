@@ -24,9 +24,9 @@ public class Constants extends CYHTConstants{
     //国内版
    // public static final String BASE_URL = "http://android.woyaokanche.com:8082/51kanche/";
     //海外版
-    public static final String BASE_URL="http://en.ccarccar.com:8085/51kanche/";
-
-
+   // public static final String BASE_URL="http://en.ccarccar.com:8085/51kanche/";
+    //测试
+    public static final String BASE_URL="http://192.168.137.144:8080/CcarCcar/";
     //SD卡路径
     public static final String PATH_DATA = DirectoryUtils.getDiskCacheDirectory(BaseApplication.mContext, "data").getAbsolutePath();
     public static final String PATH_CACHE = PATH_DATA + File.separator + "NetCache";

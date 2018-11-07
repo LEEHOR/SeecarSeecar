@@ -20,6 +20,7 @@ import com.cyht.wykc.mvp.modles.bean.MainBean;
 import com.cyht.wykc.mvp.modles.bean.MsgBean;
 import com.cyht.wykc.mvp.modles.bean.NameBean;
 import com.cyht.wykc.mvp.modles.bean.OpinionBean;
+import com.cyht.wykc.mvp.modles.bean.RegisterBean;
 import com.cyht.wykc.mvp.modles.bean.ResultBean;
 import com.cyht.wykc.mvp.modles.bean.UnReadBean;
 import com.cyht.wykc.mvp.modles.bean.UpdateBean;
@@ -55,9 +56,12 @@ public interface ApiService {
     Call<LoginBean> bindThreelogin(@QueryMap Map<String, String> options, @Field("xingming") String xingming);
 
     //手机号登陆
-    @POST("app/three/bind.htm")
+   // @POST("app/three/bind.htm") 废弃
+    @POST("app/login.htm")
     Call<LoginBean> phoneLogin(@QueryMap Map<String, String> options);
-
+    //注册账号
+    @POST("app/registe.htm")
+    Call<RegisterBean> getRegister(@QueryMap Map<String, String> options);
 
     //根据定位坐标查询附近经销商
     @FormUrlEncoded
