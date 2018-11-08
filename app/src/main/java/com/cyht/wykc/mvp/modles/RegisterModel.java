@@ -6,6 +6,7 @@ import com.cyht.wykc.mvp.contract.RegisterContract;
 import com.cyht.wykc.mvp.modles.base.BaseModel;
 import com.cyht.wykc.mvp.modles.bean.LoginBean;
 import com.cyht.wykc.mvp.modles.bean.RegisterBean;
+import com.socks.library.KLog;
 
 import java.util.Map;
 
@@ -41,7 +42,7 @@ public class RegisterModel extends BaseModel<RegisterContract.Presenter> impleme
                         }
                     } else {
                         if (getPresenter() != null) {
-                            getPresenter().onRegisterFailure(null);
+                            getPresenter().onRegisterFailure(new Throwable(registerBean.getMsg()));
                         }
                     }
                 } else {
@@ -69,15 +70,18 @@ public class RegisterModel extends BaseModel<RegisterContract.Presenter> impleme
                     LoginBean loginBean = response.body();
                     if (loginBean.getResult() == 1) {
                         if (getPresenter() != null) {
+                            KLog.d("登录","成功");
                             getPresenter().loginSuccess(loginBean);
                         }
                     } else {
                         if (getPresenter() != null) {
+                            KLog.d("登录","失败");
                             getPresenter().loginFailure(null);
                         }
                     }
                 } else {
                     if (getPresenter() != null) {
+                        KLog.d("登录","失败2");
                         getPresenter().loginFailure(new NetworkErrorException());
                     }
                 }
@@ -86,6 +90,7 @@ public class RegisterModel extends BaseModel<RegisterContract.Presenter> impleme
             @Override
             public void onFailure(Call<LoginBean> call, Throwable t) {
                 if (getPresenter() != null) {
+                    KLog.d("登录","失败3");
                     getPresenter().loginFailure(t);
                 }
             }

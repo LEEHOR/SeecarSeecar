@@ -383,6 +383,7 @@ public class MainFragment extends BaseFragment<MainContract.Presenter> implement
                 .withMedia(image)
                 .withTargetUrl(CYHTConstantsUrl.SHARE_URL + selectCoverUrl)//分享后的url地址
                 .setCallback(umShareListener);
+        KLog.d("分享地址",CYHTConstantsUrl.SHARE_URL + selectCoverUrl);
         switch (index) {
             case ShareDialog.INDEX_WX:
                 shareAction.setPlatform(SHARE_MEDIA.WEIXIN);

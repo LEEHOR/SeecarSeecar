@@ -265,10 +265,13 @@ public class RegisterActivity extends BaseActivity<RegisterContract.Presenter> i
         map.put("account",register_account.getText().toString());
         map.put("password",register_pass_sure.getText().toString());
         mPresenter.Login(map);
+        KLog.d("注册成功",bean.getMsg());
     }
 
     @Override
     public void onRegisterFailure(Throwable t) {
+        Toast.makeText(RegisterActivity.this,t.getMessage(),Toast.LENGTH_LONG).show();
+        register_massage.setText(t.getMessage());
         Bitmap bitmap = CodeUtils.getInstance().createBitmap();
         iv_code.setImageBitmap(bitmap);
     }

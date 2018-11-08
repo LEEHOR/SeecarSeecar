@@ -258,7 +258,7 @@ public class PassengerCarFragment extends BaseFragment<PassengerCarContract.Pres
     private void initPtr() {
         StoreHouseHeader header = new StoreHouseHeader(getContext());
         header.setPadding(0, DisplayUtils.dp2px(20), 0, DisplayUtils.dp2px(20));
-            header.initWithString("WOYAOKANCHE...");
+            header.initWithString("SeecarSeecar...");
         header.setTextColor(Color.RED);
 
         ptrpassenger.setDurationToCloseHeader(1500);

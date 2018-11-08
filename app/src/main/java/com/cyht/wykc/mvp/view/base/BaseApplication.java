@@ -263,7 +263,7 @@ public class BaseApplication extends LitePalApplication {
         mPushAgent.register(new IUmengRegisterCallback() {
             @Override
             public void onSuccess(String deviceToken) {
-                KLog.e(TAG, "device token: " + deviceToken);
+                KLog.d(TAG, "device token: " + deviceToken);
                 Constants.devicestoken = deviceToken;
                 SharedPreferencesUtils.put(mContext, Constants.DEVICESTOKEN, Constants.devicestoken);
 //                sendBroadcast(new Intent(UPDATE_STATUS_ACTION));

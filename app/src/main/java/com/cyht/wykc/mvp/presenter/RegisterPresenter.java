@@ -53,7 +53,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.view,Regis
     @Override
     public void Login(Map map) {
         if (mModle != null) {
-            mModle.onRegister(map);
+            mModle.Login(map);
         }
     }
 

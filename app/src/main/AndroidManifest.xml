@@ -197,10 +197,10 @@
 
         <meta-data
             android:name="UMENG_APPKEY"
-            android:value="59b0ecd4f43e48131e00096b" />
+            android:value="5be39924b465f587ab00021d" />
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="8593f689225be89c20706815a90c3554" />
+            android:value="f2e87fa87749288f041667a66ac83363" />
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="Umeng" />

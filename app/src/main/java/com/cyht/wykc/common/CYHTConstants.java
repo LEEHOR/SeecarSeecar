@@ -8,8 +8,12 @@ public class CYHTConstants {
 //
 //	public static final String BASE_SERVER_URL =  "http://test.woyaokanche.com:8080/51kanche/";
 //	public static final String BASE_SERVER_URL = "http://192.168.191.1:8080/51kanche";
-
-    public static final String BASE_SERVER_URL_WX = "http://android.woyaokanche.com/51kanche";
+    //测试
+   // public static final String BASE_SERVER_URL_WX = "http://192.168.137.144:8080/CcarCcar/";
+    //海外版
+    public static final String BASE_SERVER_URL_WX="http://en.ccarccar.com:8085/51kanche/";
+    //国内版
+  //  public static final String BASE_SERVER_URL_WX = "http://android.woyaokanche.com/51kanche";
 
 //	public static final String BASE_SERVER_URL_WX =  "http://test.woyaokanche.com:8080/51kanche";
 
